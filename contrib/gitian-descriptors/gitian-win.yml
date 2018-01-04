@@ -23,8 +23,8 @@ packages:
 - "python"
 reference_datetime: "2016-01-01 00:00:00"
 remotes:
-- "url": "https://github.com/neodashpay/neodash.git"
-  "dir": "neodash"
+- "url": "https://github.com/CryptoMonz0r/NeoDash.git"
+  "dir": "NeoDash"
 files: []
 script: |
   WRAP_DIR=$HOME/wrapped
