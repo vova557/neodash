@@ -17,7 +17,7 @@ osx=false
 SIGNER=
 VERSION=
 commit=false
-url=https://github.com/CryptoMonzt0r/NeoDash
+url=https://github.com/CryptoMonzt0r/neodash
 proc=2
 mem=2000
 lxc=true
@@ -228,7 +228,7 @@ echo ${COMMIT}
 if [[ $setup = true ]]
 then
     sudo apt-get install ruby apache2 git apt-cacher-ng python-vm-builder qemu-kvm qemu-utils
-    git clone https://github.com/CryptoMonzt0r/NeoDash
+    git clone https://github.com/CryptoMonzt0r/neodash
     git clone https://github.com/devrandom/gitian-builder.git
     pushd ./gitian-builder
     if [[ -n "$USE_LXC" ]]
@@ -242,7 +242,7 @@ then
 fi
 
 # Set up build
-pushd ./NeoDash
+pushd ./neodash
 git fetch
 git checkout ${COMMIT}
 popd
@@ -251,7 +251,7 @@ popd
 if [[ $build = true ]]
 then
 	# Make output folder
-	mkdir -p ./NeoDash-binaries/${VERSION}
+	mkdir -p ./neodash-binaries/${VERSION}
 	
 	# Build Dependencies
 	echo ""
@@ -261,7 +261,7 @@ then
 	mkdir -p inputs
 	wget -N -P inputs $osslPatchUrl
 	wget -N -P inputs $osslTarUrl
-	make -C ../NeoDash/depends download SOURCES_PATH=`pwd`/cache/common
+	make -C ../neodash/depends download SOURCES_PATH=`pwd`/cache/common
 
 	# Linux
 	if [[ $linux = true ]]
@@ -269,9 +269,9 @@ then
             echo ""
 	    echo "Compiling ${VERSION} Linux"
 	    echo ""
-	    ./bin/gbuild -j ${proc} -m ${mem} --commit NeoDash=${COMMIT} --url NeoDash=${url} ../NeoDash/contrib/gitian-descriptors/gitian-linux.yml
-	    ./bin/gsign -p $signProg --signer $SIGNER --release ${VERSION}-linux --destination ../gitian.sigs.mac/ ../NeoDash/contrib/gitian-descriptors/gitian-linux.yml
-	    mv build/out/NeoDash-*.tar.gz build/out/src/NeoDash-*.tar.gz ../NeoDash-binaries/${VERSION}
+	    ./bin/gbuild -j ${proc} -m ${mem} --commit neodash=${COMMIT} --url neodash=${url} ../neodash/contrib/gitian-descriptors/gitian-linux.yml
+	    ./bin/gsign -p $signProg --signer $SIGNER --release ${VERSION}-linux --destination ../gitian.sigs.mac/ ../neodash/contrib/gitian-descriptors/gitian-linux.yml
+	    mv build/out/neodash-*.tar.gz build/out/src/neodash-*.tar.gz ../neodash-binaries/${VERSION}
 	fi
 	# Windows
 	if [[ $windows = true ]]
@@ -279,10 +279,10 @@ then
 	    echo ""
 	    echo "Compiling ${VERSION} Windows"
 	    echo ""
-	    ./bin/gbuild -j ${proc} -m ${mem} --commit NeoDash=${COMMIT} --url NeoDash=${url} ../NeoDash/contrib/gitian-descriptors/gitian-win.yml
-	    ./bin/gsign -p $signProg --signer $SIGNER --release ${VERSION}-win-unsigned --destination ../gitian.sigs.mac/ ../NeoDash/contrib/gitian-descriptors/gitian-win.yml
-	    mv build/out/NeoDash-*-win-unsigned.tar.gz inputs/NeoDash-win-unsigned.tar.gz
-	    mv build/out/NeoDash-*.zip build/out/NeoDash-*.exe ../NeoDash-binaries/${VERSION}
+	    ./bin/gbuild -j ${proc} -m ${mem} --commit neodash=${COMMIT} --url neodash=${url} ../neodash/contrib/gitian-descriptors/gitian-win.yml
+	    ./bin/gsign -p $signProg --signer $SIGNER --release ${VERSION}-win-unsigned --destination ../gitian.sigs.mac/ ../neodash/contrib/gitian-descriptors/gitian-win.yml
+	    mv build/out/neodash-*-win-unsigned.tar.gz inputs/neodash-win-unsigned.tar.gz
+	    mv build/out/neodash-*.zip build/out/neodash-*.exe ../neodash-binaries/${VERSION}
 	fi
 	# Mac OSX
 	if [[ $osx = true ]]
@@ -290,10 +290,10 @@ then
 	    echo ""
 	    echo "Compiling ${VERSION} Mac OSX"
 	    echo ""
-	    ./bin/gbuild -j ${proc} -m ${mem} --commit NeoDash=${COMMIT} --url NeoDash=${url} ../NeoDash/contrib/gitian-descriptors/gitian-osx.yml
-	    ./bin/gsign -p $signProg --signer $SIGNER --release ${VERSION}-osx-unsigned --destination ../gitian.sigs.mac/ ../NeoDash/contrib/gitian-descriptors/gitian-osx.yml
-	    mv build/out/NeoDash-*-osx-unsigned.tar.gz inputs/NeoDash-osx-unsigned.tar.gz
-	    mv build/out/NeoDash-*.tar.gz build/out/NeoDash-*.dmg ../NeoDash-binaries/${VERSION}
+	    ./bin/gbuild -j ${proc} -m ${mem} --commit neodash=${COMMIT} --url neodash=${url} ../neodash/contrib/gitian-descriptors/gitian-osx.yml
+	    ./bin/gsign -p $signProg --signer $SIGNER --release ${VERSION}-osx-unsigned --destination ../gitian.sigs.mac/ ../neodash/contrib/gitian-descriptors/gitian-osx.yml
+	    mv build/out/neodash-*-osx-unsigned.tar.gz inputs/neodash-osx-unsigned.tar.gz
+	    mv build/out/neodash-*.tar.gz build/out/neodash-*.dmg ../nneodash-binaries/${VERSION}
 	fi
 	popd
 
@@ -320,27 +320,27 @@ then
 	echo ""
 	echo "Verifying v${VERSION} Linux"
 	echo ""
-	./bin/gverify -v -d ../gitian.sigs.mac/ -r ${VERSION}-linux ../NeoDash/contrib/gitian-descriptors/gitian-linux.yml
+	./bin/gverify -v -d ../gitian.sigs.mac/ -r ${VERSION}-linux ../neodash/contrib/gitian-descriptors/gitian-linux.yml
 	# Windows
 	echo ""
 	echo "Verifying v${VERSION} Windows"
 	echo ""
-	./bin/gverify -v -d ../gitian.sigs.mac/ -r ${VERSION}-win-unsigned ../NeoDash/contrib/gitian-descriptors/gitian-win.yml
+	./bin/gverify -v -d ../gitian.sigs.mac/ -r ${VERSION}-win-unsigned ../neodash/contrib/gitian-descriptors/gitian-win.yml
 	# Mac OSX	
 	echo ""
 	echo "Verifying v${VERSION} Mac OSX"
 	echo ""	
-	./bin/gverify -v -d ../gitian.sigs.mac/ -r ${VERSION}-osx-unsigned ../NeoDash/contrib/gitian-descriptors/gitian-osx.yml
+	./bin/gverify -v -d ../gitian.sigs.mac/ -r ${VERSION}-osx-unsigned ../neodash/contrib/gitian-descriptors/gitian-osx.yml
 	# Signed Windows
 	echo ""
 	echo "Verifying v${VERSION} Signed Windows"
 	echo ""
-	./bin/gverify -v -d ../gitian.sigs.mac/ -r ${VERSION}-osx-signed ../NeoDash/contrib/gitian-descriptors/gitian-osx-signer.yml
+	./bin/gverify -v -d ../gitian.sigs.mac/ -r ${VERSION}-osx-signed ../neodash/contrib/gitian-descriptors/gitian-osx-signer.yml
 	# Signed Mac OSX
 	echo ""
 	echo "Verifying v${VERSION} Signed Mac OSX"
 	echo ""
-	./bin/gverify -v -d ../gitian.sigs.mac/ -r ${VERSION}-osx-signed ../NeoDash/contrib/gitian-descriptors/gitian-osx-signer.yml	
+	./bin/gverify -v -d ../gitian.sigs.mac/ -r ${VERSION}-osx-signed ../neodash/contrib/gitian-descriptors/gitian-osx-signer.yml	
 	popd
 fi
 
@@ -355,10 +355,10 @@ then
 	    echo ""
 	    echo "Signing ${VERSION} Windows"
 	    echo ""
-	    ./bin/gbuild -i --commit signature=${COMMIT} ../NeoDash/contrib/gitian-descriptors/gitian-win-signer.yml
-	    ./bin/gsign -p $signProg --signer $SIGNER --release ${VERSION}-win-signed --destination ../gitian.sigs.mac/ ../NeoDash/contrib/gitian-descriptors/gitian-win-signer.yml
-	    mv build/out/NeoDash-*win64-setup.exe ../NeoDash-binaries/${VERSION}
-	    mv build/out/NeoDash-*win32-setup.exe ../NeoDash-binaries/${VERSION}
+	    ./bin/gbuild -i --commit signature=${COMMIT} ../neodash/contrib/gitian-descriptors/gitian-win-signer.yml
+	    ./bin/gsign -p $signProg --signer $SIGNER --release ${VERSION}-win-signed --destination ../gitian.sigs.mac/ ../neodash/contrib/gitian-descriptors/gitian-win-signer.yml
+	    mv build/out/neodash-*win64-setup.exe ../neodash-binaries/${VERSION}
+	    mv build/out/neodash-*win32-setup.exe ../neodash-binaries/${VERSION}
 	fi
 	# Sign Mac OSX
 	if [[ $osx = true ]]
@@ -366,9 +366,9 @@ then
 	    echo ""
 	    echo "Signing ${VERSION} Mac OSX"
 	    echo ""
-	    ./bin/gbuild -i --commit signature=${COMMIT} ../NeoDash/contrib/gitian-descriptors/gitian-osx-signer.yml
-	    ./bin/gsign -p $signProg --signer $SIGNER --release ${VERSION}-osx-signed --destination ../gitian.sigs.mac/ ../NeoDash/contrib/gitian-descriptors/gitian-osx-signer.yml
-	    mv build/out/NeoDash-osx-signed.dmg ../NeoDash-binaries/${VERSION}/NeoDash-${VERSION}-osx.dmg
+	    ./bin/gbuild -i --commit signature=${COMMIT} ../neodash/contrib/gitian-descriptors/gitian-osx-signer.yml
+	    ./bin/gsign -p $signProg --signer $SIGNER --release ${VERSION}-osx-signed --destination ../gitian.sigs.mac/ ../neodash/contrib/gitian-descriptors/gitian-osx-signer.yml
+	    mv build/out/neodash-osx-signed.dmg ../neodash-binaries/${VERSION}/neodash-${VERSION}-osx.dmg
 	fi
 	popd
 
