@@ -17,7 +17,7 @@ packages:
 - "binutils-gold"
 reference_datetime: "2014-01-10 00:00:00"
 remotes:
-- "url": "https://github.com/neodashpay/neodash.git"
+- "url": "https://github.com/CryptoMonzt0r/neodash.git"
   "dir": "neodash"
 files:
 - "raspberrypi-tools.tar.gz"
