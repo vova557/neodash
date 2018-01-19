@@ -1,4 +1,4 @@
-Neodash Core staging tree 1.0.0
+Neodash Core Community Takeover
 ===============================
 
 
@@ -12,8 +12,13 @@ to operate with no central authority: managing transactions and issuing money
 are carried out collectively by the network. Neodash Core is the name of the open
 source software which enables the use of this currency.
 
-NeoDash is a new decentralized digital currency. Called to correct the imperfection of DASH.
-NeoDash uses a hash algorithm NeoScrypt, adapted for simple miners. Neoscrypt is protected from ASIC.
-The indisputable advantage of NeoDash is a more cogent accrual of reward for the found block. 50% gets a miner, 
-50% receives investors Masternodes.
+NeoDash is a new decentralized digital currency.
+Continuing on from the success and hardwork of Bitcoin and Dash.
+It uses a hash algorithm NeoScrypt perfected by Ghostlander https://github.com/ghostlander/NeoScrypt, and is adapted for normal miners 
+who do not have access to sophisticated mining hardware. 
+Neoscrypt is protected from ASIC.
+The indisputable advantage of NeoDash is a more cogent accrual of reward for the found block. 50% goes to the miners, 
+and 50% to the Masternodes.
+
+More to follow...
 
